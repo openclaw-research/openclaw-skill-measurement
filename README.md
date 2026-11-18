@@ -1,6 +1,6 @@
 # OpenClaw Skill Measurement
 
-Artifact repository for the paper **"Security Measurement of the OpenClaw Skill Ecosystem"**.
+Artifact repository for the paper **"Content, Change, and Capabilities: A Large-scale Measurement of the ClawHub Agent Skill Registy"**.
 
 ## Repository Layout
 
