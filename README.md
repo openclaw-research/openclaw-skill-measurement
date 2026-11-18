@@ -7,7 +7,7 @@ Artifact repository for the paper **"Security Measurement of the OpenClaw Skill 
 | Directory | Description |
 |-----------|-------------|
 | `crawler/` | Skill crawler for ClawHub and GitHub (snapshot collection, deduplication) |
-| `analysis/` | Static analyzer, LLM classifier, dynamic sandbox pipeline, and reporting scripts |
+| `analysis/` | Static analyzer, LLM analyzer, dynamic sandbox pipeline, and reporting scripts |
 
 ## Dataset
 
