@@ -1,0 +1,16 @@
+[Unit]
+Description=OpenClaw skill crawler schedule (clawhub) — every 48 hours
+
+[Timer]
+# Cadence preserved from the original single-source timer (interval since last run).
+# OnUnitActiveSec needs a prior activation of the service to anchor "48h since last
+# run"; on a fresh enable the service has never run, so OnActiveSec=48h provides the
+# initial fire (48h after the timer is enabled). Thereafter OnUnitActiveSec drives the
+# 48h-after-each-run cadence.
+OnActiveSec=48h
+OnUnitActiveSec=48h
+RandomizedDelaySec=300
+Unit=openclaw-crawler@clawhub.service
+
+[Install]
+WantedBy=timers.target

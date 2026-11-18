@@ -1,0 +1,22 @@
+[Unit]
+Description=OpenClaw ClawHub verify-existing schedule — ~every 10 days
+
+[Timer]
+# ClawHub serves mutated bytes under the same version, which a normal crawl (which skips
+# known versions) won't notice — so we periodically re-download everything with
+# --verify-existing. A verify run is heavy and can run ~48h.
+#
+# Cadence: days 2, 12, 22 of each month (~10-11 day spacing) at 12:00 UTC. Exact timing
+# is NOT load-bearing: the normal clawhub crawl is long (~20-27h) and runs every 48h, so
+# a fixed-time verify will often fire while a normal crawl is in progress. The verify
+# service therefore acquires the shared clawhub lock with a BLOCKING wait (flock -w), so
+# it waits for the in-progress normal crawl to finish and then runs — it is not skipped.
+# (Earlier this relied on a 12h time-of-day offset to avoid overlap; that was fragile and
+# is no longer the mechanism.) The shared lock still guarantees the two never run at once.
+OnCalendar=*-*-02,12,22 12:00:00
+Persistent=true
+RandomizedDelaySec=600
+Unit=openclaw-crawler-verify@clawhub.service
+
+[Install]
+WantedBy=timers.target

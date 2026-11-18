@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenClaw skill crawler schedule (github-skills) — daily
+
+[Timer]
+# Daily cadence. GitHub repos change slowly and re-crawls are cheap: revision-aware
+# detection skips the tarball download for any repo whose default-branch HEAD is
+# unchanged, so a day with no changes costs only a handful of GitHub API calls per
+# repo. Daily (vs weekly) gives finer mutation-detection granularity for the dataset
+# at negligible cost. Change OnCalendar to "weekly" if a lighter cadence is preferred.
+OnCalendar=daily
+# Catch up a missed run after downtime (meaningful with OnCalendar, unlike the
+# clawhub timer's interval-based OnUnitActiveSec).
+Persistent=true
+RandomizedDelaySec=900
+Unit=openclaw-crawler@github-skills.service
+
+[Install]
+WantedBy=timers.target

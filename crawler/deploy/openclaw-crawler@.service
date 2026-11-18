@@ -1,0 +1,23 @@
+[Unit]
+# Templated, per-source crawler. The instance name (%i) is the source name, e.g.
+#   openclaw-crawler@clawhub.service
+#   openclaw-crawler@github-skills.service
+Description=OpenClaw skill crawler (%i)
+After=network.target postgresql.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/openclaw-crawler-prod
+EnvironmentFile=/home/ubuntu/openclaw-crawler-prod/.env
+# Per-source lock: a source never overlaps itself (flock -n exits immediately if the
+# source's own run is still in progress), but different sources use different lock
+# files, so e.g. clawhub and github-skills may run concurrently.
+ExecStart=flock -n /tmp/openclaw-crawler-%i.lock \
+    /home/ubuntu/openclaw-crawler-prod/venv/bin/python3 cli.py crawl --source %i
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=openclaw-crawler-%i
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,70 @@
+# GitHub skill-repository seeds for the `github-skills` source.
+#
+# Format: one "owner/repo" per line. Blank lines and everything after a `#` are
+# ignored, so inline notes are fine. Loaded by sources/github.py:load_seeds() —
+# ONLY the uncommented lines below are enabled/crawled.
+#
+# This is a hand-maintained allowlist (no automated GitHub search / awesome-list
+# expansion). It supersedes the throwaway sample-scripts/skills_repositories.csv.
+#
+# Provenance: candidates came from a GitHub topic search for OpenClaw skills (the
+# old CSV). Each was probed on 2026-06-26 for existence and a recursive tree scan
+# counting exact-`SKILL.md` blobs. Inline counts are the RAW number of SKILL.md
+# files — an UPPER BOUND on distinct skills.
+#
+# !!! DUPLICATION / MIRRORING WARNING !!!
+# Several repos mirror the same skill under multiple agent dirs (.gemini/skills,
+# .claude/skills, ...) and a few contain scaffolding (README/TEMPLATE dirs). The
+# crawler stores one row per source_id ("owner/repo//<skill_dir>"), so these raw
+# counts include near-duplicates: expect the total stored rows to far exceed the
+# number of *distinct* skills. Known offenders are flagged "MIRRORED" below.
+# De-duplication is intentionally NOT done here (deferred); artifact_hash lets you
+# detect byte-identical copies after the fact. Revision-aware detection keeps
+# re-crawls cheap (unchanged HEAD => skip download).
+#
+# ============================================================================
+# ENABLED — all repos verified to exist AND contain >=1 SKILL.md (raw count, stars
+# at probe time). Large/noisy repos are included on purpose for full coverage.
+# ============================================================================
+
+# --- large repos (high raw counts; heavy mirroring likely) ---
+LeoYeAI/openclaw-master-skills              # 2190 SKILL.md, 2063*  MIRRORED (very large)
+FreedomIntelligence/OpenClaw-Medical-Skills # 896, 2762*  MIRRORED likely
+alirezarezvani/claude-skills                # 763 raw (420 distinct dirs), 19071*  MIRRORED
+davepoon/buildwithclaude                    # 338, 3111*
+beita6969/ScienceClaw                       # 293, 854*
+openakita/openakita                         # 264, 1831*
+browser-act/skills                          # 71, 2983*
+SafeAI-Lab-X/ClawKeeper                     # 71, 1032*
+
+# --- small/medium repos ---
+samber/cc-skills-golang                     # 44, 2292*
+jdrhyne/agent-skills                        # 34, 235*
+volcengine/OpenViking                       # 15, 26052*
+CherryHQ/cherry-studio                      # 14, 47801*  (general app; vet relevance)
+realkimbarrett/advertising-skills           # 12, 675*
+iOfficeAI/OfficeCLI                         # 12, 8053*
+runkids/skillshare                          # 9, 2312*
+libukai/awesome-agent-skills                # 8, 4762*
+iflytek/skillhub                            # 8, 3599*
+MemTensor/MemOS                             # 7, 9991*  (general app; vet relevance)
+LearnPrompt/cc-harness-skills               # 6, 219*
+kepano/obsidian-skills                      # 5, 38209*
+Xiangyu-CAS/xiaohongshu-ops-skill           # 1, 1980*
+LeoYeAI/openclaw-backup                     # 1, 669*
+HuangYuChuh/ComfyUI_Skills_OpenClaw         # 1, 329*
+mvanhorn/last30days-skill                   # 1, 46760*
+
+# ============================================================================
+# Exists but NO SKILL.md found — excluded (curated index / unrelated / other layout):
+# ============================================================================
+#   VoltAgent/awesome-openclaw-skills        # 0 (README index), 50616*
+#   skillmatic-ai/awesome-agent-skills       # 0 (README index), 606*
+#   AMAP-ML/SkillClaw                        # 0, 2020*
+#   safishamsi/graphify                      # 0 (unrelated project), 72132*
+#   Leon-Drq/openagentskill                  # 0, 183*
+
+# ============================================================================
+# Does not exist (404) — excluded:
+# ============================================================================
+#   openclaw/skills

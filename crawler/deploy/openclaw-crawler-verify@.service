@@ -1,0 +1,31 @@
+[Unit]
+# Templated, per-source VERIFY crawler: re-downloads known artifacts and records a new
+# hash row when the bytes changed under the same version (mutation evidence). Instance
+# name (%i) is the source, e.g. openclaw-crawler-verify@clawhub.service.
+Description=OpenClaw skill verify-crawl (%i)
+After=network.target postgresql.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/openclaw-crawler-prod
+EnvironmentFile=/home/ubuntu/openclaw-crawler-prod/.env
+# SAME per-source lock as the normal crawl (openclaw-crawler@%i.service) — a source's
+# normal and verify crawls share /tmp/openclaw-crawler-%i.lock and therefore never run
+# at the same time.
+#
+# BLOCKING acquire (flock -w, 48h timeout), unlike the normal crawl's flock -n: the
+# normal clawhub crawl is long (~20-27h observed) and runs every 48h, so a verify firing
+# on a fixed schedule would otherwise frequently land while a normal crawl holds the lock
+# and be SKIPPED for ~10 days. Waiting instead means verify reliably runs once the
+# in-progress normal crawl finishes. The 48h cap is a safety valve (give up if a normal
+# crawl is wedged); it comfortably exceeds the longest observed normal run. Normal crawls
+# that fire while verify holds the lock simply skip (flock -n) and resume next cycle.
+ExecStart=flock -w 172800 /tmp/openclaw-crawler-%i.lock \
+    /home/ubuntu/openclaw-crawler-prod/venv/bin/python3 cli.py crawl --source %i --verify-existing
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=openclaw-crawler-verify-%i
+
+[Install]
+WantedBy=multi-user.target

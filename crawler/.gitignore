@@ -1,0 +1,12 @@
+.DS_Store
+.history/
+__pycache__/
+*.pyc
+*.pyo
+.env
+artifacts/
+venv/
+logs/
+*.log
+.claude/
+CLAUDE.md

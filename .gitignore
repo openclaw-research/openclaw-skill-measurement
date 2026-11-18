@@ -1,0 +1,28 @@
+﻿# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Secrets and local config
+.env
+*.env.local
+
+# Logs and temp
+*.log
+logs/
+tmp/
+
+# Reports / large outputs (host on Zenodo instead)
+analysis/reports/

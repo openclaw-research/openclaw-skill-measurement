@@ -1,0 +1,42 @@
+.env
+.env.*
+!.env.example
+
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.cache/
+tmp/
+temp/
+artifacts/tmp/
+openclaw-analysis/
+logs/
+# Generated, non-committed metrics packs (copied elsewhere by hand)
+paper_metrics/
+*.log
+.DS_Store
+# --- Development scratch, validation data, and local caches ---
+# Log directories
+# Downloaded artifact caches
+tests/tmp_artifacts/
+# Downloaded validation datasets
+tests/validation_data/
+# Scratch run output
+tests/*_run_output.txt
+# Personal env files
+.arshiya.env
+.vkp.env
+*.local.env
+# Editor/IDE settings
+.claude/
+.vscode/
+*.code-workspace
+.history/
