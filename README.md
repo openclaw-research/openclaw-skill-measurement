@@ -13,11 +13,12 @@ Artifact repository for the paper **"Content, Change, and Capabilities: A Large-
 
 The full dataset is archived on Zenodo:
 
-**DOI: [10.5281/zenodo.24329490](https://doi.org/10.5281/zenodo.24329490)**
+**DOI: https://zenodo.org/records/24355557**
 
 The deposit includes:
 
-- `skill_collector_oct13_2026.sql.gz` — full PostgreSQL database dump (~2.5 GB compressed)
+- `skill_collector_oct13_2026.sql.gz` — full PostgreSQL database dump (2.6 GB compressed)
+- `skill_artifacts_clawhub.tar.gz` — raw skill artifacts from ClawHub (6.5 GB compressed, 2,382,260 files)
 - `inplace_mutation_analysis.csv` — per-skill in-place mutation analysis
 - `scan_coverage_by_month.csv` — ClawScan coverage and lag by publication month
 - `moderation_status.csv` — per-skill ClawScan verdicts and timestamps
